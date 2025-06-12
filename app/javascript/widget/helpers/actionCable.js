@@ -65,6 +65,9 @@ class ActionCableConnector extends BaseActionCableConnector {
       eventIdentifier: CHATWOOT_ON_MESSAGE,
       data,
     });
+    if (data.content_type === 'cards') {
+      IFrameHelper.sendMessage({ event: 'card-message', data });
+    }
     if (data.sender_type === 'User') {
       playNewMessageNotificationInWidget();
     }
@@ -81,6 +84,9 @@ class ActionCableConnector extends BaseActionCableConnector {
         eventIdentifier: CHATWOOT_ON_MESSAGE,
         data,
       });
+      if (data.content_type === 'cards') {
+        IFrameHelper.sendMessage({ event: 'card-message', data });
+      }
     }
 
     this.app.$store.dispatch('conversation/addOrUpdateMessage', data);
