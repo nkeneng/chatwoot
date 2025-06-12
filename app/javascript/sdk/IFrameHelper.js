@@ -26,6 +26,7 @@ import {
   CHATWOOT_ERROR,
   CHATWOOT_POSTBACK,
   CHATWOOT_READY,
+  CHATWOOT_CARD_MESSAGE,
 } from '../widget/constants/sdkEvents';
 import { SET_USER_ERROR } from '../widget/constants/errorTypes';
 import { getUserCookieName, setCookieWithDomain } from './cookieHelpers';
@@ -213,6 +214,10 @@ export const IFrameHelper = {
         eventName: CHATWOOT_POSTBACK,
         data,
       });
+    },
+
+    'card-message'({ data }) {
+      dispatchWindowEvent({ eventName: CHATWOOT_CARD_MESSAGE, data });
     },
 
     toggleBubble: state => {

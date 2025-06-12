@@ -90,6 +90,33 @@ Publish help articles, FAQs, and guides through the built-in Help Center Portal.
 
 Detailed documentation is available at [chatwoot.com/help-center](https://www.chatwoot.com/help-center).
 
+### Handling card messages with postMessage
+
+When the widget receives a message of type `cards` it now emits a
+`chatwoot:card-message` event. You can listen for this event and build a
+custom product carousel in your page.
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide/dist/js/splide.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide/dist/css/splide.min.css" />
+
+<script>
+window.addEventListener('chatwoot:card-message', function (e) {
+  const items = e.detail.content_attributes.items;
+  const root = document.getElementById('product-carousel');
+  root.innerHTML = '<div class="splide__track"><ul class="splide__list"></ul></div>';
+  const list = root.querySelector('.splide__list');
+  items.forEach(item => {
+    const li = document.createElement('li');
+    li.className = 'splide__slide';
+    li.innerHTML = `<img src="${item.media_url}" alt="${item.title}" />`;
+    list.appendChild(li);
+  });
+  new Splide(root).mount();
+});
+</script>
+```
+
 ## Translation process
 
 The translation process for Chatwoot web and mobile app is managed at [https://translate.chatwoot.com](https://translate.chatwoot.com) using Crowdin. Please read the [translation guide](https://www.chatwoot.com/docs/contributing/translating-chatwoot-to-your-language) for contributing to Chatwoot.
