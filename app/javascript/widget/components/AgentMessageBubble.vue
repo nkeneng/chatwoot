@@ -1,6 +1,6 @@
 <script>
 import { useMessageFormatter } from 'shared/composables/useMessageFormatter';
-import ChatCard from 'shared/components/ChatCard.vue';
+import ChatCardCarousel from 'shared/components/ChatCardCarousel.vue';
 import ChatForm from 'shared/components/ChatForm.vue';
 import ChatOptions from 'shared/components/ChatOptions.vue';
 import ChatArticle from './template/Article.vue';
@@ -12,7 +12,7 @@ export default {
   name: 'AgentMessageBubble',
   components: {
     ChatArticle,
-    ChatCard,
+    ChatCardCarousel,
     ChatForm,
     ChatOptions,
     EmailInput,
@@ -128,16 +128,7 @@ export default {
       :submitted-values="messageContentAttributes.submitted_values"
       @submit="onFormSubmit"
     />
-    <div v-if="isCards">
-      <ChatCard
-        v-for="item in messageContentAttributes.items"
-        :key="item.title"
-        :media-url="item.media_url"
-        :title="item.title"
-        :description="item.description"
-        :actions="item.actions"
-      />
-    </div>
+    <ChatCardCarousel v-if="isCards" :items="messageContentAttributes.items" />
     <div v-if="isArticle">
       <ChatArticle :items="messageContentAttributes.items" />
     </div>
