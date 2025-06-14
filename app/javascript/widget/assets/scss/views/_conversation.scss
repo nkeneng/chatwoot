@@ -71,6 +71,11 @@
     &.has-response + .agent-message-wrap {
       @apply mt-4;
     }
+
+    // Adjust thumbnail position for card messages
+    &.cards .user-thumbnail-box {
+      margin-top: -6px !important;
+    }
   }
 
   .user-message {
@@ -206,4 +211,9 @@
       word-break: break-word;
     }
   }
+}
+
+// Adjust thumbnail for product cards
+.agent-message-wrap.cards .user-thumbnail-box {
+  margin-top: -6px !important;
 }
