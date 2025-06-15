@@ -15,7 +15,7 @@ const props = defineProps({
     default: '',
   },
   price: {
-    type: [String, Number],
+    type: String,
     default: null,
   },
   actionLabel: {
@@ -35,10 +35,10 @@ const hasContent = computed(() => {
 });
 
 const formattedPrice = computed(() => {
-  if (typeof props.price === 'undefined' || props.price === null) {
+  if (typeof props.price === 'undefined' || props.price === null || props.price === '') {
     return null;
   }
-  return `$${parseFloat(props.price).toFixed(2)}`;
+  return props.price;
 });
 
 const handleActionClick = (e) => {
