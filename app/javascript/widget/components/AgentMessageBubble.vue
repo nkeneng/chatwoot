@@ -1,6 +1,7 @@
 <script>
 import { useMessageFormatter } from 'shared/composables/useMessageFormatter';
 import ChatCardCarousel from 'shared/components/ChatCardCarousel.vue';
+import ChatCard from 'shared/components/ChatCard.vue';
 import ChatForm from 'shared/components/ChatForm.vue';
 import ChatOptions from 'shared/components/ChatOptions.vue';
 import ChatArticle from './template/Article.vue';
@@ -12,6 +13,7 @@ export default {
   name: 'AgentMessageBubble',
   components: {
     ChatArticle,
+    ChatCard,
     ChatCardCarousel,
     ChatForm,
     ChatOptions,
@@ -48,6 +50,9 @@ export default {
     },
     isCards() {
       return this.contentType === 'cards';
+    },
+    isCaroussel() {
+      return this.contentType === 'caroussel';
     },
     isOptions() {
       return this.contentType === 'input_select';
@@ -93,7 +98,13 @@ export default {
   <div class="chat-bubble-wrap">
     <div
       v-if="
-        !isCards && !isOptions && !isForm && !isArticle && !isCards && !isCSAT
+        !isCards &&
+        !isCaroussel &&
+        !isOptions &&
+        !isForm &&
+        !isArticle &&
+        !isCards &&
+        !isCSAT
       "
       class="chat-bubble agent bg-n-background dark:bg-n-solid-3 text-n-slate-12"
     >
@@ -128,7 +139,17 @@ export default {
       :submitted-values="messageContentAttributes.submitted_values"
       @submit="onFormSubmit"
     />
-    <ChatCardCarousel v-if="isCards" :items="messageContentAttributes.items" />
+    <div v-if="isCards">
+      <ChatCard
+        v-for="item in messageContentAttributes.items"
+        :key="item.title"
+        :media-url="item.media_url"
+        :title="item.title"
+        :description="item.description"
+        :actions="item.actions"
+      />
+    </div>
+    <ChatCardCarousel v-if="isCaroussel" :items="messageContentAttributes.items" />
     <div v-if="isArticle">
       <ChatArticle :items="messageContentAttributes.items" />
     </div>

@@ -161,7 +161,7 @@ export default {
     class="agent-message-wrap group"
     :class="{
       'has-response': hasRecordedResponse || isASubmittedForm,
-       'cards': contentType === 'cards',
+      'caroussel': contentType === 'caroussel',
     }"
   >
     <div v-if="!isASubmittedForm" class="agent-message">
@@ -182,8 +182,8 @@ export default {
             class="space-y-2"
             :class="{
               'w-full':
-                (contentType === 'form'  &&
-                !messageContentAttributes?.submitted_values) || contentType === 'cards',
+                (contentType === 'form' &&
+                !messageContentAttributes?.submitted_values) || contentType === 'caroussel',
             }"
           >
             <AgentMessageBubble
